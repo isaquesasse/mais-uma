@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0"><meta name="description" content="Seu caderno de academia. Registre cargas, acompanhe seu peso e treine junto.">
+  <meta name="referrer" content="no-referrer">
+  <title>Mais uma — caderno de treino</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./" aria-label="Mais uma, início"><span class="brand-icon">m.</span> mais uma</a><button id="cloud-button" class="quiet"><span class="status-dot"></span><span id="cloud-status">Salvo neste aparelho</span><span aria-hidden="true">↗</span></button></header>
+<main>
+  <div class="intro"><div><p class="eyebrow">SEU CADERNO DE ACADEMIA</p><h1>Um treino de cada vez.</h1><p class="subtle">Anote hoje. Veja o quanto você já avançou.</p></div><span class="edition">SEM PRESSA.<br>SEM PERDER A CONTA.</span></div>
+  <section class="people-bar" aria-label="Pessoas"><div id="people" class="people"></div><button id="add-person" class="quiet">＋ Adicionar pessoa</button></section>
+  <div class="section-bar"><nav aria-label="Tipo de registro"><button id="tab-training" class="tab active" aria-pressed="true">Cargas do treino</button><button id="tab-body" class="tab" aria-pressed="false">Peso corporal</button></nav><span id="person-caption" class="subtle"></span></div>
+  <div class="workspace">
+    <section class="entry-panel"><div class="panel-heading"><span class="index">01 / ANOTAR</span><button id="cancel-edit" class="text-button" hidden>Cancelar edição</button></div><h2 id="form-title">O que rendeu hoje?</h2>
+      <form id="entry-form">
+        <div id="exercise-fields"><label for="exercise">Exercício</label><input id="exercise" list="exercise-options" placeholder="Ex.: supino reto" maxlength="80" autocomplete="off"><datalist id="exercise-options"></datalist><p id="last-exercise" class="hint">Escolha um exercício ou escreva um novo.</p></div>
+        <label for="weight" id="weight-label">Carga (kg)</label><div class="weight-control"><button type="button" id="minus" aria-label="Diminuir peso">−</button><input id="weight" type="text" inputmode="decimal" placeholder="0" required aria-describedby="weight-help" maxlength="7"><span>kg</span><button type="button" id="plus" aria-label="Aumentar peso">＋</button></div><p class="hint" id="weight-help">Use sempre o mesmo critério: total ou por lado.</p>
+        <div id="sets-fields" class="two-cols"><div><label for="sets">Séries</label><input id="sets" type="number" min="1" max="100" value="3" required></div><div><label for="reps">Repetições</label><input id="reps" type="number" min="1" max="500" value="12" required></div></div>
+        <label for="date">Data</label><input id="date" type="date" required>
+        <label for="note">Observação <span class="optional">opcional</span></label><input id="note" placeholder="Como foi?" maxlength="180">
+        <button class="primary save-button" type="submit" id="save-entry">Salvar registro <span>↗</span></button>
+        <p id="form-error" class="error" role="alert"></p>
+      </form>
+      <div class="paper-note"><span aria-hidden="true">↳</span> O melhor número é o que você não esqueceu de anotar.</div>
+    </section>
+    <section class="records-panel"><div class="panel-heading"><span class="index">02 / ACOMPANHAR</span><label class="sr-only" for="exercise-filter">Filtrar exercício</label><select id="exercise-filter"><option value="">Todos os exercícios</option></select></div>
+      <div class="stats"><div><span id="stat-one-label">Última carga</span><strong id="stat-one">—</strong><small id="stat-one-detail">Seu primeiro registro começa aqui.</small></div><div><span id="stat-two-label">Treinos anotados</span><strong id="stat-two">0</strong><small id="stat-two-detail">dias de treino</small></div></div>
+      <div id="chart-wrap" hidden><div class="chart-heading"><h3 id="chart-title">Evolução</h3><span class="hint">kg</span></div><div id="chart"></div></div>
+      <div class="history-heading"><h2>Últimos registros</h2><span id="record-count" class="count">0</span></div>
+      <div id="records"></div>
+    </section>
+  </div>
+  <footer><span>mais uma. <span class="subtle">Seu ritmo, no papel digital.</span></span><div><button id="export" class="text-button">Baixar backup</button><button id="import" class="text-button">Restaurar backup</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></footer>
+</main>
+<dialog id="person-dialog"><form id="person-form"><div class="dialog-heading"><h2>Quem vai treinar?</h2><button type="button" data-close="person-dialog" class="icon-button" aria-label="Fechar">×</button></div><p class="subtle">Cada pessoa tem seu próprio histórico.</p><label for="person-name">Nome</label><input id="person-name" maxlength="32" placeholder="Como você se chama?" required><button class="primary" type="submit">Adicionar pessoa</button><p id="person-error" class="error" role="alert"></p></form></dialog>
+<dialog id="cloud-dialog"><div class="dialog-heading"><h2>Treinar junto</h2><button data-close="cloud-dialog" class="icon-button" aria-label="Fechar">×</button></div><p class="subtle">Conecte o mesmo arquivo nos dois aparelhos para compartilhar as pessoas e os registros.</p><div id="cloud-content"></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<script type="module" src="app.js"></script>
+</body></html>
+

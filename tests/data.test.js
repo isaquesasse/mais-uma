@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {blank,merge,seal,unseal,validData} from '../data.js';
+const p={id:'p1',name:'Pessoa teste',updatedAt:1};
+const entry=(id,weight,updatedAt=1)=>({id,personId:'p1',type:'training',exercise:'Supino',weight,sets:3,reps:12,date:'2026-10-05',note:'',updatedAt});
+test('combina registros criados em aparelhos diferentes sem duplicar',()=>{const a={...blank(),people:[p],entries:[entry('a',30)]},b={...blank(),people:[p],entries:[entry('b',40)]};const joined=merge(a,b);assert.equal(joined.entries.length,2);assert.deepEqual(merge(joined,a),joined);assert.deepEqual(merge(a,b),merge(b,a));});
+test('edição mais recente vence e exclusão não reaparece após sincronizar',()=>{const a={...blank(),people:[p],entries:[entry('a',30)]},b={...blank(),people:[p],entries:[{...entry('a',35,2),deleted:true}]};assert.equal(merge(a,b).entries[0].deleted,true);assert.equal(merge(a,b).entries[0].weight,35);});
+test('validação recusa backup inválido, datas impossíveis e registros órfãos',()=>{assert.equal(validData({...blank(),people:[p],entries:[entry('a',30)]}),true);assert.equal(validData({...blank(),people:[p],entries:[{...entry('a',30),date:'2026-02-31'}]}),false);assert.equal(validData({...blank(),entries:[entry('a',30)]}),false);assert.equal(validData({...blank(),people:[p],entries:[entry('a',-10)]}),false);});
+test('criptografia preserva os dados e rejeita senha errada',async()=>{const d={...blank(),people:[p],entries:[entry('a',30)]};const envelope=await seal(d,'senha-apenas-para-teste');assert.equal(JSON.stringify(envelope).includes('Supino'),false);assert.deepEqual(await unseal(envelope,'senha-apenas-para-teste'),d);await assert.rejects(unseal(envelope,'incorreta'));});
+test('criptografia também suporta um histórico extenso',async()=>{const d={...blank(),people:[p],entries:Array.from({length:2000},(_,i)=>entry(String(i),30))};assert.deepEqual(await unseal(await seal(d,'teste-historico-extenso'),'teste-historico-extenso'),d);});
