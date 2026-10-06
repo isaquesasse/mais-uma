@@ -36,7 +36,7 @@
   <footer><span>mais uma. <span class="subtle">Seu ritmo, no papel digital.</span></span><div><button id="export" class="text-button">Baixar backup</button><button id="import" class="text-button">Restaurar backup</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></footer>
 </main>
 <dialog id="person-dialog"><form id="person-form"><div class="dialog-heading"><h2>Quem vai treinar?</h2><button type="button" data-close="person-dialog" class="icon-button" aria-label="Fechar">×</button></div><p class="subtle">Cada pessoa tem seu próprio histórico.</p><label for="person-name">Nome</label><input id="person-name" maxlength="32" placeholder="Como você se chama?" required><button class="primary" type="submit">Adicionar pessoa</button><p id="person-error" class="error" role="alert"></p></form></dialog>
-<dialog id="cloud-dialog"><div class="dialog-heading"><h2>Treinar junto</h2><button data-close="cloud-dialog" class="icon-button" aria-label="Fechar">×</button></div><p class="subtle">Conecte o mesmo arquivo nos dois aparelhos para compartilhar as pessoas e os registros.</p><div id="cloud-content"></div></dialog>
+<dialog id="cloud-dialog"><div class="dialog-heading"><h2>Treinar junto</h2><button data-close="cloud-dialog" class="icon-button" aria-label="Fechar">×</button></div><p class="subtle">Um caderno para vocês dois, com o histórico de cada um.</p><div id="cloud-content"></div></dialog>
 <div id="toast" class="toast" role="status" hidden></div>
 <script type="module" src="app.js"></script>
 </body></html>
