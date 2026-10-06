@@ -28,3 +28,13 @@ Sirva esta pasta com um servidor HTTP estático. Rode `npm test` com Node 22+ pa
 `config.js` contém apenas a URL pública da API. `server/index.js` é uma cópia do Worker usado pelo serviço de armazenamento; sua implantação ocorre separadamente via Sites, com binding R2 `BUCKET` e variável protegida `NOTEBOOK_HASH`.
 
 Nunca adicione o link de acesso ou credenciais ao repositório. O Gist inicialmente preparado foi substituído para permitir uso sem configuração manual.
+
+## Recursos opcionais
+
+Abra **Opções de treino** para criar e editar fichas por pessoa, repetir o último dia de treino, consultar recordes ou usar o cronômetro de 60/90/120 segundos. Fichas e repetições apenas preenchem o formulário: é preciso salvar cada exercício para registrá-lo. As fichas acompanham o perfil na sincronização.
+
+Marque **Carga diferente em cada série** para registrar peso e repetições individuais. O resumo e o gráfico mostram a maior carga do registro. **Editar perfil** permite renomear e escolher uma cor. A opção de mostrar recordes é local ao aparelho.
+
+**Instalar no celular** usa a instalação nativa quando disponível ou mostra instruções para Safari/Chrome. Após a primeira visita online, o service worker prepara os arquivos para abrir offline. Sincronização requer reabrir o aplicativo com internet; não há envio em segundo plano com o app fechado. O cronômetro usa um horário de término persistido, mas não dispara alertas do sistema enquanto o app estiver fechado.
+
+O formato de dados 2 aceita backups antigos e preserva séries e fichas. Uma aba muito antiga precisará ser recarregada para abrir o novo formato; seus registros locais continuam disponíveis.
